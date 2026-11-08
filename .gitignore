@@ -1,0 +1,37 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Temporary & inspection scripts
+inspect_*.py
+find_*.py
+test_*.py
+check_*.py
+extract_*.py
+extract_*.txt
+extracted_*.txt
+js_*.txt
+apply_*.py
+make_*.py
+patch_*.py
+compile_*.py
+build_*.py
+verify_final.py
+simulate_game.js
+
+# Legacy and backup HTML builds
+BL400K - v*.html
+
+# Environment & OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+*.tmp
+*.log
+
+# Python Virtual Environments
+.venv/
+venv/
+env/
+ENV/
