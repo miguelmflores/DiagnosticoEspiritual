@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>Diagnóstico Bíblico: ¿Tienes el Espíritu Santo? | BL400K</title>
 <!-- 
 ========================================================================
@@ -1487,7 +1487,7 @@ html, body {
    ======================================================================== */
 @media (orientation: portrait), (max-width: 860px) {
   html, body {
-    overflow: hidden;
+    overflow-x: hidden;
     height: 100%;
     width: 100%;
   }
@@ -1495,9 +1495,11 @@ html, body {
   .slide-holder {
     height: 100vh;
     height: 100dvh;
-    overflow: hidden;
-    padding: calc(var(--hud-height) + 0.3rem) 0.8rem 0.8rem 0.8rem;
-    justify-content: center;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    padding: calc(var(--hud-height) + env(safe-area-inset-top, 0px) + 0.2rem) 0.6rem calc(env(safe-area-inset-bottom, 0px) + 0.6rem) 0.6rem;
+    justify-content: flex-start;
     align-items: center;
   }
 
@@ -1505,8 +1507,11 @@ html, body {
   .holder-box-center {
     width: 100%;
     max-width: 100%;
-    height: calc(100vh - var(--hud-height) - 0.8rem);
-    max-height: calc(100vh - var(--hud-height) - 0.8rem);
+    min-height: min-content;
+    height: auto;
+    max-height: none;
+    display: flex;
+    flex-direction: column;
   }
 
   /* HOLDER 1: HERO IN PORTRAIT */
@@ -1514,111 +1519,127 @@ html, body {
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: calc(100vh - var(--hud-height) - 0.8rem);
-    max-height: calc(100vh - var(--hud-height) - 0.8rem);
+    min-height: calc(100dvh - var(--hud-height) - env(safe-area-inset-bottom, 0px) - 1.2rem);
+    height: auto;
+    max-height: none;
     border-radius: 16px;
-    overflow: hidden;
+    overflow: visible;
   }
 
   .hero-media {
     width: 100%;
-    height: 28vh;
-    max-height: 28vh;
+    height: clamp(140px, 22dvh, 210px);
+    max-height: 22dvh;
+    object-fit: cover;
     border-right: none;
     border-bottom: 2px solid var(--gold-dark);
   }
 
   .hero-body {
-    padding: 1.1rem 1.2rem;
+    padding: 0.9rem 1rem;
     align-items: center;
     text-align: center;
     justify-content: space-between;
-    height: calc(100% - 28vh);
-    overflow: hidden;
+    flex: 1 1 auto;
+    height: auto;
+    overflow: visible;
+    gap: 0.6rem;
   }
 
   .hero-body-top {
     align-items: center;
     gap: 0.35rem;
+    width: 100%;
   }
 
   .hero-title {
-    font-size: clamp(1.8rem, 5.8vw, 2.35rem);
-    line-height: 1.2;
-    margin-bottom: 0.35rem;
+    font-size: clamp(1.45rem, 5.2vw, 1.95rem);
+    line-height: 1.18;
+    margin-bottom: 0.25rem;
   }
 
   .hero-sub {
-    font-size: 1.12rem;
-    line-height: 1.45;
+    font-size: clamp(0.92rem, 3vw, 1.05rem);
+    line-height: 1.38;
     max-width: 100%;
     color: #e2e8f0;
   }
 
   .hero-citation {
-    font-size: 1.05rem;
-    padding: 0.55rem 0.95rem;
-    margin-top: 0.25rem;
+    font-size: clamp(0.85rem, 2.7vw, 0.95rem);
+    padding: 0.45rem 0.75rem;
+    margin-top: 0.2rem;
+    line-height: 1.32;
   }
 
   .hero-action-row {
-    padding-top: 0.4rem;
+    padding-top: 0.35rem;
+    padding-bottom: 0.4rem;
     width: 100%;
+    position: sticky;
+    bottom: 0;
+    z-index: 10;
+    background: linear-gradient(180deg, rgba(10, 11, 16, 0.6) 0%, rgba(10, 11, 16, 0.98) 100%);
   }
 
   .hero-action-row .action-btn {
     width: 100%;
-    min-height: 52px;
-    font-size: 1.25rem;
-    padding: 0.85rem 1.6rem;
+    min-height: 50px;
+    font-size: 1.18rem;
+    padding: 0.75rem 1.4rem;
+    box-shadow: 0 4px 18px rgba(245, 158, 11, 0.4);
   }
 
   /* HOLDER 2: DIFFICULTY IN PORTRAIT */
   .diff-slide-card {
     width: 100%;
-    height: calc(100vh - var(--hud-height) - 0.8rem);
-    max-height: calc(100vh - var(--hud-height) - 0.8rem);
-    padding: 1.1rem;
+    min-height: calc(100dvh - var(--hud-height) - env(safe-area-inset-bottom, 0px) - 1.2rem);
+    height: auto;
+    max-height: none;
+    padding: 1rem;
     border-radius: 16px;
     justify-content: space-between;
+    overflow: visible;
   }
 
   .diff-slide-title {
-    font-size: clamp(1.8rem, 5.8vw, 2.4rem);
-    margin-bottom: 0.3rem;
+    font-size: clamp(1.45rem, 5.2vw, 2rem);
+    margin-bottom: 0.25rem;
   }
 
   .diff-slide-sub {
-    font-size: 1.12rem;
-    margin-bottom: 0.8rem;
+    font-size: clamp(0.92rem, 3vw, 1.05rem);
+    margin-bottom: 0.65rem;
     color: #e2e8f0;
   }
 
   .diff-options {
     display: flex;
     flex-direction: column;
-    gap: 0.85rem;
-    margin-bottom: 0.85rem;
+    gap: 0.7rem;
+    margin-bottom: 0.75rem;
+    width: 100%;
   }
 
   .diff-btn {
-    padding: 1rem 1.2rem;
-    border-radius: 14px;
+    padding: 0.85rem 1rem;
+    border-radius: 12px;
   }
 
   .diff-name {
-    font-size: 1.35rem;
-    margin-bottom: 0.3rem;
+    font-size: 1.18rem;
+    margin-bottom: 0.2rem;
   }
 
   .diff-desc {
-    font-size: 1.08rem;
-    line-height: 1.42;
+    font-size: 0.95rem;
+    line-height: 1.35;
   }
 
   .diff-slide-card .action-btn {
     width: 100%;
-    min-height: 48px;
+    min-height: 50px;
+    font-size: 1.15rem;
   }
 
   /* HOLDER 3A: STAGE INTRO IN PORTRAIT (FULL-SCREEN ARTWORK AS BACKGROUND) */
@@ -2337,15 +2358,33 @@ const audio = new SoundEngine();
 // BGM Audio Controller
 function tryStartBgm() {
   const bgm = document.getElementById('bgmAudio');
+  if (audio.ctx && audio.ctx.state === 'suspended') {
+    audio.ctx.resume();
+  }
   if (bgm && state.soundEnabled && state.volume > 0) {
     bgm.volume = state.volume;
-    bgm.play().then(() => {
-      state.bgmPlaying = true;
-    }).catch(() => {
-      // Browser autoplay policy waiting for user interaction
-    });
+    const playPromise = bgm.play();
+    if (playPromise !== undefined) {
+      playPromise.then(() => {
+        state.bgmPlaying = true;
+      }).catch(() => {
+        // Browser autoplay policy waiting for user interaction
+      });
+    }
   }
 }
+
+// Mobile & Browser Audio Unlock on first touch/click
+function unlockAudioEngine() {
+  audio.init();
+  tryStartBgm();
+  ['touchstart', 'touchend', 'click'].forEach(evt => {
+    document.removeEventListener(evt, unlockAudioEngine, true);
+  });
+}
+['touchstart', 'touchend', 'click'].forEach(evt => {
+  document.addEventListener(evt, unlockAudioEngine, true);
+});
 
 // Interactive Volume Control (Slider & Presets & Mute)
 window.setAppVolume = function(val) {
@@ -2409,7 +2448,15 @@ window.requestAppFullscreen = function() {
       docEl.requestFullscreen().catch(() => {});
     } else if (docEl.webkitRequestFullscreen) {
       docEl.webkitRequestFullscreen();
+    } else if (docEl.webkitEnterFullscreen) {
+      docEl.webkitEnterFullscreen();
     }
+  }
+  // Scroll to top to collapse mobile browser address bar
+  try {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  } catch(e) {
+    window.scrollTo(0, 0);
   }
 };
 
