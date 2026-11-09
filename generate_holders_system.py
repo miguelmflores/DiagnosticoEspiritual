@@ -95,8 +95,8 @@ Partículas: Ascuas celestiales flotando en primer plano (z-index: 99)
 
 html, body {{
   height: 100%;
+  min-height: 100%;
   width: 100%;
-  overflow: hidden; /* CERO OVERFLOW Y CERO SCROLL ACCIDENTAL */
   overflow-x: hidden;
   word-break: break-word;
   overflow-wrap: anywhere;
@@ -105,6 +105,9 @@ html, body {{
   font-family: var(--font-sans);
   line-height: 1.5;
   user-select: none;
+  -webkit-user-select: none;
+  touch-action: pan-y;
+  -webkit-tap-highlight-color: transparent;
 }}
 
 /* CANVAS BACKGROUND PARTICLES (EN PRIMER PLANO POR ENCIMA DE HOLDERS Y TEXTOS) */
@@ -381,19 +384,23 @@ html, body {{
 #slideDeck {{
   position: relative;
   width: 100vw;
-  height: 100vh;
-  overflow: hidden;
+  height: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow-x: hidden;
   z-index: 10;
 }}
 
 .slide-holder {{
   position: absolute;
   inset: 0;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   padding: calc(var(--hud-height) + 0.5rem) 1.2rem 1rem 1.2rem;
   opacity: 0;
@@ -402,8 +409,10 @@ html, body {{
   transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1), transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.45s;
   pointer-events: none;
   box-sizing: border-box;
-  overflow-y: auto;
-  overflow-x: hidden;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  -webkit-overflow-scrolling: touch !important;
+  touch-action: pan-y;
   scrollbar-width: thin;
   scrollbar-color: var(--gold-dark) transparent;
 }}
@@ -1538,13 +1547,13 @@ html, body {{
   .slide-holder {{
     position: absolute;
     inset: 0;
-    width: 100vw;
+    width: 100%;
     height: 100%;
     min-height: 100dvh;
     overflow-y: auto !important;
     overflow-x: hidden !important;
     -webkit-overflow-scrolling: touch !important;
-    padding: 0.6rem 0.6rem calc(env(safe-area-inset-bottom, 0px) + 1.2rem) 0.6rem;
+    padding: 0.6rem 0.6rem calc(env(safe-area-inset-bottom, 0px) + 2rem) 0.6rem;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -1553,7 +1562,7 @@ html, body {{
   }}
 
   .slide-holder.has-hud {{
-    padding-top: calc(var(--hud-height) + env(safe-area-inset-top, 0px) + 0.5rem);
+    padding-top: calc(var(--hud-height) + env(safe-area-inset-top, 0px) + 0.6rem);
   }}
 
   .holder-box,
@@ -1566,25 +1575,26 @@ html, body {{
     display: flex;
     flex-direction: column;
     margin: 0 auto;
+    padding: 0.2rem;
   }}
 
-  /* HOLDER 1: HERO IN PORTRAIT (TOTAL SCROLL & VISIBILITY) */
+  /* HOLDER 1: HERO IN PORTRAIT (MOBILE-FIRST REACHABILITY) */
   .hero-card {{
     display: flex;
     flex-direction: column;
     width: 100%;
-    min-height: calc(100dvh - env(safe-area-inset-bottom, 0px) - 1.5rem);
+    min-height: auto;
     height: auto;
     max-height: none;
     border-radius: 16px;
     overflow: visible !important;
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
   }}
 
   .hero-media {{
     width: 100%;
-    height: 200px;
-    max-height: 26dvh;
+    height: 190px;
+    max-height: 25dvh;
     object-fit: cover;
     border-right: none;
     border-bottom: 2px solid var(--gold-dark);
@@ -1592,7 +1602,7 @@ html, body {{
   }}
 
   .hero-body {{
-    padding: 1rem;
+    padding: 1.1rem 1rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -1601,76 +1611,76 @@ html, body {{
     flex: 1 0 auto;
     height: auto;
     overflow: visible !important;
-    gap: 0.75rem;
+    gap: 0.85rem;
   }}
 
   .hero-body-top {{
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.45rem;
+    gap: 0.5rem;
     width: 100%;
   }}
 
   .hero-title {{
-    font-size: clamp(1.4rem, 5.5vw, 1.95rem);
-    line-height: 1.2;
-    margin-bottom: 0.25rem;
+    font-size: clamp(1.45rem, 5.8vw, 2rem);
+    line-height: 1.22;
+    margin-bottom: 0.2rem;
   }}
 
   .hero-sub {{
-    font-size: clamp(0.9rem, 3.2vw, 1.05rem);
-    line-height: 1.4;
+    font-size: clamp(0.95rem, 3.4vw, 1.12rem);
+    line-height: 1.45;
     max-width: 100%;
     color: #e2e8f0;
   }}
 
   .hero-citation {{
-    font-size: clamp(0.85rem, 2.8vw, 0.95rem);
-    padding: 0.5rem 0.8rem;
+    font-size: clamp(0.88rem, 3vw, 1rem);
+    padding: 0.55rem 0.9rem;
     margin-top: 0.25rem;
-    line-height: 1.35;
+    line-height: 1.38;
   }}
 
   .hero-action-row {{
-    padding: 0.8rem 0;
+    padding: 0.9rem 0 0.5rem 0;
     width: 100%;
     position: static;
-    margin-top: auto;
+    margin-top: 0.5rem;
     flex-shrink: 0;
   }}
 
   .hero-action-row .action-btn {{
     width: 100%;
-    min-height: 52px;
-    font-size: 1.2rem;
-    padding: 0.85rem 1.4rem;
-    box-shadow: 0 4px 20px rgba(245, 158, 11, 0.5);
+    min-height: 54px;
+    font-size: 1.25rem;
+    padding: 0.9rem 1.4rem;
+    box-shadow: 0 4px 22px rgba(245, 158, 11, 0.55);
   }}
 
-  /* HOLDER 2: DIFFICULTY IN PORTRAIT (TOTAL SCROLL & VISIBILITY) */
+  /* HOLDER 2: DIFFICULTY IN PORTRAIT (MOBILE-FIRST REACHABILITY) */
   .diff-slide-card {{
     width: 100%;
-    min-height: calc(100dvh - env(safe-area-inset-bottom, 0px) - 1.5rem);
+    min-height: auto;
     height: auto;
     max-height: none;
-    padding: 1.1rem;
+    padding: 1.2rem 1rem;
     border-radius: 16px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     overflow: visible !important;
-    gap: 0.8rem;
-    margin-bottom: 1.5rem;
+    gap: 0.9rem;
+    margin-bottom: 2rem;
   }}
 
   .diff-slide-title {{
-    font-size: clamp(1.4rem, 5.5vw, 2rem);
-    margin-bottom: 0.25rem;
+    font-size: clamp(1.45rem, 5.8vw, 2.05rem);
+    margin-bottom: 0.2rem;
   }}
 
   .diff-slide-sub {{
-    font-size: clamp(0.9rem, 3.2vw, 1.05rem);
+    font-size: clamp(0.95rem, 3.4vw, 1.12rem);
     margin-bottom: 0.4rem;
     color: #e2e8f0;
   }}
@@ -1678,32 +1688,32 @@ html, body {{
   .diff-options {{
     display: flex;
     flex-direction: column;
-    gap: 0.85rem;
-    margin-bottom: 0.8rem;
+    gap: 0.9rem;
+    margin-bottom: 0.9rem;
     width: 100%;
     flex: 1 0 auto;
   }}
 
   .diff-btn {{
-    padding: 0.9rem 1.1rem;
+    padding: 1rem 1.1rem;
     border-radius: 14px;
   }}
 
   .diff-name {{
-    font-size: 1.2rem;
+    font-size: 1.22rem;
     margin-bottom: 0.25rem;
   }}
 
   .diff-desc {{
-    font-size: 0.95rem;
-    line-height: 1.38;
+    font-size: 0.98rem;
+    line-height: 1.4;
   }}
 
   .diff-slide-card .action-btn {{
     width: 100%;
-    min-height: 52px;
-    font-size: 1.18rem;
-    margin-top: auto;
+    min-height: 54px;
+    font-size: 1.22rem;
+    margin-top: 0.5rem;
     flex-shrink: 0;
   }}
 
@@ -1716,18 +1726,19 @@ html, body {{
     flex-direction: column;
     justify-content: flex-end;
     width: 100%;
-    min-height: calc(100dvh - var(--hud-height) - 1.2rem);
+    min-height: calc(100dvh - var(--hud-height) - 1.5rem);
     height: auto;
     padding: 1rem;
-    gap: 0.55rem;
+    gap: 0.6rem;
     border-radius: 16px;
     overflow: visible !important;
+    margin-bottom: 2rem;
   }}
 
   .stage-intro-grid.align-left .stage-intro-bg-img,
   .stage-intro-grid.align-right .stage-intro-bg-img,
   .stage-intro-bg-img {{
-    object-position: center 18%; /* Rostro del personaje arriba */
+    object-position: center 18%;
   }}
 
   .stage-intro-grid.align-left .stage-intro-overlay,
@@ -1754,7 +1765,7 @@ html, body {{
     z-index: 3;
     height: auto;
     justify-content: flex-end;
-    gap: 0.45rem;
+    gap: 0.5rem;
   }}
 
   .character-header {{
@@ -1762,35 +1773,35 @@ html, body {{
   }}
 
   .char-name {{
-    font-size: clamp(1.4rem, 5vw, 1.95rem);
+    font-size: clamp(1.45rem, 5.2vw, 2rem);
     line-height: 1.2;
     margin: 0.05rem 0 0.15rem 0;
   }}
 
   .char-era {{
-    font-size: 0.72rem;
+    font-size: 0.75rem;
     margin-bottom: 0.15rem;
   }}
 
   .char-subtitle {{
-    font-size: 0.85rem;
+    font-size: 0.9rem;
   }}
 
   .bible-citation-badge {{
-    padding: 0.3rem 0.6rem;
+    padding: 0.35rem 0.65rem;
   }}
   .bible-citation-badge span:first-child {{
-    font-size: 0.8rem;
+    font-size: 0.85rem;
   }}
 
   .scene-body {{
-    gap: 0.4rem;
+    gap: 0.45rem;
   }}
 
   .scene-phrase {{
-    padding: 0.5rem 0.75rem;
-    font-size: 1.05rem;
-    line-height: 1.4;
+    padding: 0.55rem 0.8rem;
+    font-size: 1.08rem;
+    line-height: 1.42;
     gap: 0.65rem;
     background: rgba(0, 0, 0, 0.12);
     backdrop-filter: blur(8px);
@@ -1800,86 +1811,91 @@ html, body {{
   .stage-intro-grid .action-btn {{
     width: 100%;
     min-height: 48px;
-    font-size: 1.05rem;
-    margin-top: 0.3rem;
+    min-height: 50px;
+    font-size: 1.1rem;
+    margin-top: 0.4rem;
   }}
 
   /* HOLDERS 3B, 3C, 3D: QUESTIONS IN PORTRAIT (FULL SCROLL SAFEGUARD) */
   .question-slide-card {{
     width: 100%;
-    min-height: calc(100dvh - var(--hud-height) - 1.2rem);
+    min-height: calc(100dvh - var(--hud-height) - 1.5rem);
     height: auto;
     max-height: none;
-    padding: 1rem;
+    padding: 1.1rem 1rem;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
+    gap: 0.8rem;
     border-radius: 16px;
     overflow-y: auto !important;
     overflow-x: hidden !important;
     -webkit-overflow-scrolling: touch !important;
+    margin-bottom: 2rem;
   }}
 
   .question-title-badge {{
-    font-size: 0.75rem;
+    font-size: 0.78rem;
     margin-bottom: 0.3rem;
   }}
 
   .question-text {{
-    font-size: clamp(1.1rem, 3.8vw, 1.35rem);
-    line-height: 1.28;
-    margin-bottom: 0.6rem;
+    font-size: clamp(1.15rem, 4vw, 1.42rem);
+    line-height: 1.32;
+    margin-bottom: 0.65rem;
   }}
 
   .options-list {{
-    gap: 0.55rem;
-    margin-bottom: 0.65rem;
+    gap: 0.65rem;
+    margin-bottom: 0.75rem;
+    width: 100%;
   }}
 
   .opt-btn {{
-    padding: 0.8rem 1rem;
-    font-size: 1.1rem;
-    line-height: 1.35;
-    min-height: 48px;
-    gap: 0.65rem;
+    padding: 0.9rem 1.1rem;
+    font-size: 1.15rem;
+    line-height: 1.38;
+    min-height: 52px;
+    gap: 0.75rem;
   }}
 
   .feedback-box {{
-    padding: 0.75rem 0.95rem;
-    margin-top: 0.4rem;
+    padding: 0.85rem 1rem;
+    margin-top: 0.5rem;
   }}
 
   .fb-meme {{
-    font-size: 0.9rem;
-    margin-bottom: 0.3rem;
+    font-size: 0.95rem;
+    margin-bottom: 0.35rem;
   }}
 
   .fb-explanation {{
-    font-size: 0.85rem;
-    line-height: 1.38;
-    margin-bottom: 0.65rem;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    margin-bottom: 0.75rem;
   }}
 
   .flow-btn-primary,
   .flow-btn-next {{
     width: 100%;
-    min-height: 48px;
+    min-height: 50px;
     justify-content: center;
-    font-size: 1.02rem;
-    padding: 0.7rem 1.4rem;
+    font-size: 1.08rem;
+    padding: 0.75rem 1.4rem;
   }}
 
   /* HOLDER 4: FINALE IN PORTRAIT (FULL SCROLL SAFEGUARD) */
   .finale-card {{
     width: 100%;
-    min-height: calc(100dvh - var(--hud-height) - 1.2rem);
+    min-height: calc(100dvh - var(--hud-height) - 1.5rem);
     height: auto;
     max-height: none;
-    padding: 1.1rem;
+    padding: 1.2rem 1rem;
     border-radius: 16px;
     overflow-y: auto !important;
     overflow-x: hidden !important;
     -webkit-overflow-scrolling: touch !important;
+    margin-bottom: 2rem;
   }}
 
   .finale-media {{
@@ -1910,7 +1926,7 @@ html, body {{
   .whatsapp-btn,
   .reset-btn {{
     width: 100%;
-    min-height: 48px;
+    min-height: 50px;
   }}
 }}
 
@@ -2638,6 +2654,26 @@ class ClickSparkEngine {{
     this.canvas.height = window.innerHeight;
   }}
   spawn(x, y, color = '#fbbf24', count = 14) {{
+    const validX = (typeof x === 'number' && !isNaN(x)) ? x : (window.innerWidth / 2);
+    const validY = (typeof y === 'number' && !isNaN(y)) ? y : (window.innerHeight / 2);
+    for (let i = 0; i < count; i++) {{
+      const angle = (Math.PI * 2 / count) * i + (Math.random() - 0.5) * 0.5;
+      const speed = Math.random() * 4.5 + 2.5;
+      this.sparks.push({{
+        x: validX,
+        y: validY,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed - 1.2,
+        radius: Math.random() * 2.8 + 1.2,
+        alpha: 1,
+        color,
+        life: 0,
+        maxLife: Math.random() * 18 + 22
+      }});
+    }}
+    return;
+  }}
+  legacy_spawn_unused(x, y, color = '#fbbf24', count = 14) {{
     for (let i = 0; i < count; i++) {{
       const angle = (Math.PI * 2 / count) * i + (Math.random() - 0.5) * 0.5;
       const speed = Math.random() * 4.5 + 2.5;
@@ -2742,6 +2778,15 @@ window.goToSlide = function(slideId) {{
 window.handleStartDiagnosis = function() {{
   requestAppFullscreen();
   goToSlide('difficultySlide');
+}};
+
+window.goToDiagnosticSlide = function(evt) {{
+  if (evt && clickSpark) {{
+    const cx = (evt.clientX !== undefined) ? evt.clientX : (window.innerWidth / 2);
+    const cy = (evt.clientY !== undefined) ? evt.clientY : (window.innerHeight / 2);
+    clickSpark.spawn(cx, cy, '#fbbf24', 12);
+  }}
+  goToSlide('stageDiagnosticSlide');
 }};
 
 window.selectDifficulty = function(diff) {{
@@ -2863,7 +2908,7 @@ function renderCurrentNode() {{
       </div>
 
       <div style="margin-top: auto; padding-top: 0.4rem;">
-        <button class="action-btn pulse-btn" id="btnGoToDiagnostic" onclick="goToSlide('stageDiagnosticSlide'); if (clickSpark) clickSpark.spawn(event.clientX, event.clientY, '#fbbf24', 12);">
+        <button class="action-btn pulse-btn" id="btnGoToDiagnostic" onclick="goToDiagnosticSlide(event)">
           <span>🔬 Evaluar Diagnóstico</span>
           <span>→</span>
         </button>
@@ -3294,8 +3339,23 @@ function showFinaleScreen() {{
 }}
 
 /* ========================================================================
-   EVENT LISTENERS & MODAL LOGIC
+   EVENT LISTENERS & MODAL LOGIC (MOBILE-FIRST FAST CLICK & TOUCH BINDINGS)
    ======================================================================== */
+const startBtn = document.getElementById('startGameBtn');
+if (startBtn) {{
+  startBtn.addEventListener('touchend', (e) => {{
+    e.preventDefault();
+    handleStartDiagnosis();
+  }}, {{ passive: false }});
+}}
+
+const confirmStartBtn = document.getElementById('btnConfirmStart');
+if (confirmStartBtn) {{
+  confirmStartBtn.addEventListener('touchend', (e) => {{
+    e.preventDefault();
+    startDiagnosticGame();
+  }}, {{ passive: false }});
+}}
 document.getElementById('audioToggleBtn').addEventListener('click', toggleVolumePopup);
 document.getElementById('closeVolumePopup').addEventListener('click', toggleVolumePopup);
 document.getElementById('volumeMuteBtn').addEventListener('click', toggleMute);
