@@ -286,18 +286,44 @@ TEXT_SIDES = {
     "jesus": "right"            # Jesucristo texto al lado derecho
 }
 
+PORTRAIT_POSITIONS = {
+    "cain": "68% 22%",             # Caín de rodillas con ira ante el altar
+    "abraham_hagar": "62% 20%",    # Abraham y Agar en aflicción en la tienda
+    "abraham_isaac": "32% 18%",    # Abraham ante el altar con el carnero y la luz
+    "joseph": "50% 18%",           # José con resplandor en el palacio egipcio
+    "pharaoh": "78% 18%",          # Faraón en su trono de piedra y el Nilo de sangre
+    "moses": "78% 20%",            # Moisés descendiendo de Sinaí con las tablas
+    "bezaleel": "65% 20%",         # Bezaleel tallando el Arca del Pacto
+    "saul": "46% 18%",             # Saúl atormentado en su trono con corona
+    "david_goliath": "18% 18%",    # David con la honda resplandeciente
+    "david_repentance": "65% 25%", # David llorando postrado ante su corona
+    "elijah": "66% 22%",           # Elías con brazos en alto y el fuego del cielo
+    "micaiah": "30% 20%",          # Micaías encadenado con la visión celestial arriba
+    "daniel": "66% 22%",           # Daniel orando con el ángel resplandeciente
+    "john_baptist": "16% 18%",     # Juan el Bautista predicando en la roca
+    "judas": "36% 18%",            # Judas en Getsemaní con la bolsa de plata
+    "peter_pentecost": "68% 18%",  # Pedro en Pentecostés con la llama sobre su cabeza
+    "ananias_sapphira": "35% 25%", # Ananías cayendo fulminado con las monedas
+    "stephen_paul": "70% 20%",     # Esteban apedreado mirando al cielo abierto
+    "jesus": "46% 18%",            # Jesucristo con brazos abiertos y la paloma santa
+}
+
 CHARACTERS = []
 for c in p2_chars:
     c["textSide"] = TEXT_SIDES.get(c["id"], "right")
+    c["portraitPos"] = PORTRAIT_POSITIONS.get(c["id"], "50% 20%")
     CHARACTERS.append(c)
     if c["id"] == "moses":
         BEZALEEL["textSide"] = TEXT_SIDES.get("bezaleel", "left")
+        BEZALEEL["portraitPos"] = PORTRAIT_POSITIONS.get("bezaleel", "65% 20%")
         CHARACTERS.append(BEZALEEL)
     elif c["id"] == "elijah":
         MICAIAH["textSide"] = TEXT_SIDES.get("micaiah", "right")
+        MICAIAH["portraitPos"] = PORTRAIT_POSITIONS.get("micaiah", "30% 20%")
         CHARACTERS.append(MICAIAH)
 
 JESUS["textSide"] = TEXT_SIDES.get("jesus", "right")
+JESUS["portraitPos"] = PORTRAIT_POSITIONS.get("jesus", "46% 18%")
 CHARACTERS.append(JESUS)
 print(f"Total characters ready: {len(CHARACTERS)}")
 

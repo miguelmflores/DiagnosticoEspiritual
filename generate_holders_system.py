@@ -1841,10 +1841,11 @@ html, body {{
     margin-bottom: 0;
   }}
 
+  .stage-intro-grid .stage-intro-bg-img,
   .stage-intro-grid.align-left .stage-intro-bg-img,
   .stage-intro-grid.align-right .stage-intro-bg-img,
   .stage-intro-bg-img {{
-    object-position: center 20%;
+    object-position: var(--portrait-pos, center 20%) !important;
   }}
 
   .stage-intro-grid.align-left .stage-intro-overlay,
@@ -3070,8 +3071,8 @@ function renderCurrentNode() {{
   const introContainer = document.getElementById('stageIntroGrid');
   introContainer.className = `stage-intro-grid ${{alignClass}}`;
   introContainer.innerHTML = `
-    <!-- IMAGEN DE FONDO DE TODO EL HOLDER -->
-    <img src="${{char.image}}" alt="${{char.name}}" class="stage-intro-bg-img">
+    <!-- IMAGEN DE FONDO DE TODO EL HOLDER (CALIBRACIÓN DINÁMICA PORTRAIT & LANDSCAPE) -->
+    <img src="${{char.image}}" alt="${{char.name}}" class="stage-intro-bg-img" style="--portrait-pos: ${{char.portraitPos || '50% 20%'}};">
     <div class="stage-intro-overlay"></div>
     <div class="character-tag-badge ${{char.tagClass}}">${{char.tag}}</div>
 
