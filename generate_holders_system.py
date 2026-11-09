@@ -1578,23 +1578,24 @@ html, body {{
     padding: 0.2rem;
   }}
 
-  /* HOLDER 1: HERO IN PORTRAIT (MOBILE-FIRST REACHABILITY) */
+  /* HOLDER 1: HERO IN PORTRAIT (MOBILE-FIRST NO-SCROLL FIT) */
   .hero-card {{
     display: flex;
     flex-direction: column;
     width: 100%;
-    min-height: auto;
-    height: auto;
-    max-height: none;
+    height: 100%;
+    min-height: calc(100dvh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) - 1rem);
+    max-height: calc(100dvh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) - 1rem);
     border-radius: 16px;
-    overflow: visible !important;
-    margin-bottom: 2rem;
+    overflow: hidden !important;
+    margin-bottom: 0;
   }}
 
   .hero-media {{
     width: 100%;
-    height: 190px;
-    max-height: 25dvh;
+    height: 20vh;
+    max-height: 20vh;
+    min-height: 110px;
     object-fit: cover;
     border-right: none;
     border-bottom: 2px solid var(--gold-dark);
@@ -1602,118 +1603,118 @@ html, body {{
   }}
 
   .hero-body {{
-    padding: 1.1rem 1rem;
+    padding: 0.65rem 0.85rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
-    justify-content: flex-start;
-    flex: 1 0 auto;
-    height: auto;
-    overflow: visible !important;
-    gap: 0.85rem;
+    justify-content: space-between;
+    flex: 1 1 auto;
+    height: calc(100% - 20vh);
+    overflow-y: auto !important;
+    gap: 0.35rem;
   }}
 
   .hero-body-top {{
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.3rem;
     width: 100%;
   }}
 
   .hero-title {{
-    font-size: clamp(1.45rem, 5.8vw, 2rem);
-    line-height: 1.22;
-    margin-bottom: 0.2rem;
+    font-size: clamp(1.2rem, 4.6vw, 1.55rem);
+    line-height: 1.15;
+    margin-bottom: 0.1rem;
   }}
 
   .hero-sub {{
-    font-size: clamp(0.95rem, 3.4vw, 1.12rem);
-    line-height: 1.45;
+    font-size: clamp(0.78rem, 2.7vw, 0.9rem);
+    line-height: 1.32;
     max-width: 100%;
-    color: #e2e8f0;
+    color: #cbd5e1;
   }}
 
   .hero-citation {{
-    font-size: clamp(0.88rem, 3vw, 1rem);
-    padding: 0.55rem 0.9rem;
-    margin-top: 0.25rem;
-    line-height: 1.38;
+    font-size: clamp(0.74rem, 2.4vw, 0.84rem);
+    padding: 0.35rem 0.65rem;
+    margin-top: 0.15rem;
+    line-height: 1.28;
   }}
 
   .hero-action-row {{
-    padding: 0.9rem 0 0.5rem 0;
+    padding: 0.4rem 0 0.2rem 0;
     width: 100%;
     position: static;
-    margin-top: 0.5rem;
+    margin-top: auto;
     flex-shrink: 0;
   }}
 
   .hero-action-row .action-btn {{
     width: 100%;
-    min-height: 54px;
-    font-size: 1.25rem;
-    padding: 0.9rem 1.4rem;
-    box-shadow: 0 4px 22px rgba(245, 158, 11, 0.55);
+    min-height: 48px;
+    font-size: 1.12rem;
+    padding: 0.65rem 1.2rem;
+    box-shadow: 0 4px 18px rgba(245, 158, 11, 0.5);
   }}
 
-  /* HOLDER 2: DIFFICULTY IN PORTRAIT (MOBILE-FIRST REACHABILITY) */
+  /* HOLDER 2: DIFFICULTY IN PORTRAIT (MOBILE-FIRST NO-SCROLL FIT) */
   .diff-slide-card {{
     width: 100%;
-    min-height: auto;
-    height: auto;
-    max-height: none;
-    padding: 1.2rem 1rem;
+    height: 100%;
+    min-height: calc(100dvh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) - 1rem);
+    max-height: calc(100dvh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) - 1rem);
+    padding: 0.8rem 0.85rem;
     border-radius: 16px;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
-    overflow: visible !important;
-    gap: 0.9rem;
-    margin-bottom: 2rem;
+    justify-content: space-between;
+    overflow-y: auto !important;
+    gap: 0.5rem;
+    margin-bottom: 0;
   }}
 
   .diff-slide-title {{
-    font-size: clamp(1.45rem, 5.8vw, 2.05rem);
-    margin-bottom: 0.2rem;
+    font-size: clamp(1.25rem, 4.8vw, 1.6rem);
+    margin-bottom: 0.15rem;
   }}
 
   .diff-slide-sub {{
-    font-size: clamp(0.95rem, 3.4vw, 1.12rem);
-    margin-bottom: 0.4rem;
-    color: #e2e8f0;
+    font-size: clamp(0.8rem, 2.7vw, 0.92rem);
+    margin-bottom: 0.25rem;
+    color: #cbd5e1;
   }}
 
   .diff-options {{
     display: flex;
     flex-direction: column;
-    gap: 0.9rem;
-    margin-bottom: 0.9rem;
+    gap: 0.55rem;
+    margin-bottom: 0.45rem;
     width: 100%;
-    flex: 1 0 auto;
+    flex: 1 1 auto;
   }}
 
   .diff-btn {{
-    padding: 1rem 1.1rem;
-    border-radius: 14px;
+    padding: 0.7rem 0.85rem;
+    border-radius: 12px;
   }}
 
   .diff-name {{
-    font-size: 1.22rem;
-    margin-bottom: 0.25rem;
+    font-size: 1.05rem;
+    margin-bottom: 0.15rem;
   }}
 
   .diff-desc {{
-    font-size: 0.98rem;
-    line-height: 1.4;
+    font-size: 0.82rem;
+    line-height: 1.32;
   }}
 
   .diff-slide-card .action-btn {{
     width: 100%;
-    min-height: 54px;
-    font-size: 1.22rem;
-    margin-top: 0.5rem;
+    min-height: 48px;
+    font-size: 1.12rem;
+    margin-top: auto;
     flex-shrink: 0;
   }}
 
