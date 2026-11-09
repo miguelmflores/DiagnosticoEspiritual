@@ -159,6 +159,12 @@ html, body {{
   box-shadow: 0 0 15px var(--crimson-glow);
 }}
 
+/* ELIMINAR COLISIÓN: El botón flotante jamás se muestra sobre el HUD */
+#gameHudHeader.is-visible ~ .fullscreen-exit-btn,
+.hud-active .fullscreen-exit-btn {{
+  display: none !important;
+}}
+
 /* HUD HEADER REDESIGNED (COMPACT & FIXED 50px) */
 .hud-header {{
   position: fixed;
@@ -250,10 +256,16 @@ html, body {{
   border: 1px solid var(--border-gold);
   border-radius: 20px;
   padding: 0.22rem 0.85rem;
-  display: flex;
+  display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.4rem;
   box-shadow: 0 0 12px rgba(245, 158, 11, 0.2);
+  white-space: nowrap;
+  flex-shrink: 0;
+}}
+.hud-score-chip span {{
+  white-space: nowrap;
 }}
 
 .hud-actions {{
@@ -1718,43 +1730,97 @@ html, body {{
     flex-shrink: 0;
   }}
 
-  /* HOLDER 3A: STAGE INTRO IN PORTRAIT (MOBILE-FIRST NO-SCROLL FIT) */
+  /* HOLDER 3A: HUD HEADER IN PORTRAIT (MOBILE-FIRST CLEAN ORDERED LAYOUT) */
   .hud-header {{
+    height: 48px;
+    max-height: 48px;
     padding: 0 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.35rem;
+    z-index: 1000;
   }}
 
   .hud-left {{
-    gap: 0.4rem;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    min-width: 0;
+    flex: 1 1 auto;
+    overflow: hidden;
+  }}
+
+  .hud-logo-crest {{
+    font-size: 1.15rem;
+    line-height: 1;
+    flex-shrink: 0;
+  }}
+
+  .hud-stage-block {{
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+    overflow: hidden;
   }}
 
   .hud-stage-name {{
     font-size: 0.72rem;
-    max-width: 140px;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    font-weight: 800;
+    letter-spacing: 0.3px;
+    color: var(--gold-bright);
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    max-width: 115px;
+    line-height: 1.2;
+    display: block;
   }}
 
   .hud-progress-track {{
-    width: 70px;
+    width: 55px;
+    height: 3px;
+    flex-shrink: 0;
   }}
 
   .hud-diff-badge {{
-    display: none;
+    display: none !important;
   }}
 
   .hud-score-chip {{
-    padding: 0.15rem 0.5rem;
-    font-size: 0.82rem;
+    padding: 0.18rem 0.5rem;
+    font-size: 0.76rem;
+    gap: 0.25rem;
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
+    display: inline-flex;
+    align-items: center;
+    border-radius: 12px;
+  }}
+
+  .hud-score-chip span {{
+    white-space: nowrap !important;
   }}
 
   .hud-actions {{
+    display: flex;
+    align-items: center;
     gap: 0.25rem;
+    flex-shrink: 0 !important;
   }}
 
   .hud-icon-btn {{
-    width: 30px;
-    height: 30px;
-    font-size: 0.85rem;
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    font-size: 0.88rem;
+    border-radius: 7px;
+    flex-shrink: 0;
+  }}
+
+  .fullscreen-exit-btn {{
+    display: none !important;
   }}
 
   .stage-intro-grid.align-left,
@@ -2697,8 +2763,10 @@ function updateFullscreenState() {{
   const isFs = !!(document.fullscreenElement || document.webkitFullscreenElement);
   const exitBtn = document.getElementById('exitFullscreenBtn');
   const fsIcon = document.getElementById('fullscreenIcon');
-  if (exitBtn) exitBtn.style.display = isFs ? 'flex' : 'none';
-  if (fsIcon) fsIcon.textContent = isFs ? '🗗' : '⛶';
+  const hud = document.getElementById('gameHudHeader');
+  const isHudVisible = hud && hud.style.display !== 'none';
+  if (exitBtn) exitBtn.style.display = (isFs && !isHudVisible) ? 'flex' : 'none';
+  if (fsIcon) fsIcon.textContent = isFs ? '✕' : '⛶';
 }}
 document.addEventListener('fullscreenchange', updateFullscreenState);
 document.addEventListener('webkitfullscreenchange', updateFullscreenState);
@@ -2892,7 +2960,10 @@ window.goToSlide = function(slideId) {{
   );
   if (hudHeader) {{
     hudHeader.style.display = isGameplaySlide ? 'flex' : 'none';
+    hudHeader.classList.toggle('is-visible', isGameplaySlide);
   }}
+
+  updateFullscreenState();
 
   if (target) {{
     target.classList.toggle('has-hud', isGameplaySlide);
@@ -2963,8 +3034,9 @@ function spawnFloatingScore(text, type, x, y) {{
   const el = document.createElement('div');
   el.className = `floating-score ${{type}}`;
   el.textContent = text;
+  const safeY = Math.max(y, 65);
   el.style.left = `${{x}}px`;
-  el.style.top = `${{y}}px`;
+  el.style.top = `${{safeY}}px`;
   document.body.appendChild(el);
   setTimeout(() => el.remove(), 1100);
 }}
