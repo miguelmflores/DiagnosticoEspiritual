@@ -21,7 +21,8 @@ from data_characters import CHARACTERS, ASSETS
 
 print(f"Loaded {len(CHARACTERS)} characters and {len(ASSETS)} assets.")
 
-OUTPUT_FILE = r"c:\Users\migue\OneDrive - Universidad Catolica del Maule\BL400K\BL400K.html"
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+OUTPUT_FILE = os.path.join(BASE_DIR, "BL400K.html")
 
 # Prepare JSON string of characters
 CHARACTERS_JSON = json.dumps(CHARACTERS, ensure_ascii=False)
