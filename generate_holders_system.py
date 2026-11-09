@@ -46,6 +46,36 @@ HTML_CONTENT = f"""<!DOCTYPE html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>Diagnóstico Bíblico: ¿Tienes el Espíritu Santo? | BL400K</title>
+
+<!-- Favicon Links & Theme Color -->
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="shortcut icon" href="favicon.svg">
+<meta name="theme-color" content="#d4af37">
+
+<!-- SEO & Primary Meta Tags -->
+<meta name="title" content="Diagnóstico Bíblico: ¿Tienes el Espíritu Santo? | BL400K">
+<meta name="description" content="Descubre a través de 19 personajes bíblicos las evidencias reales de quiénes fueron verdaderamente guiados por el Espíritu de Dios y quiénes operaron bajo el engaño de la carne.">
+
+<!-- Open Graph / Facebook / WhatsApp / Telegram -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://miguelmflores.github.io/DiagnosticoEspiritual/">
+<meta property="og:title" content="Diagnóstico Bíblico: ¿Tienes el Espíritu Santo?">
+<meta property="og:description" content="Descubre a través de 19 personajes bíblicos las evidencias reales de quiénes fueron verdaderamente guiados por el Espíritu de Dios y quiénes operaron bajo el engaño de la carne.">
+<meta property="og:image" content="https://miguelmflores.github.io/DiagnosticoEspiritual/og-preview.jpg">
+<meta property="og:image:secure_url" content="https://miguelmflores.github.io/DiagnosticoEspiritual/og-preview.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="es_ES">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:url" content="https://miguelmflores.github.io/DiagnosticoEspiritual/">
+<meta name="twitter:title" content="Diagnóstico Bíblico: ¿Tienes el Espíritu Santo?">
+<meta name="twitter:description" content="Descubre a través de 19 personajes bíblicos las evidencias reales de quiénes fueron verdaderamente guiados por el Espíritu de Dios y quiénes operaron bajo el engaño de la carne.">
+<meta name="twitter:image" content="https://miguelmflores.github.io/DiagnosticoEspiritual/og-preview.jpg">
 <!-- 
 ========================================================================
 DIAGNÓSTICO BÍBLICO: ¿TIENES EL ESPÍRITU SANTO? (BL400K - HOLDERS SYSTEM)
@@ -2002,17 +2032,17 @@ html, body {{
   }}
 
   .question-text {{
-    font-size: clamp(1rem, 3.8vw, 1.25rem);
-    line-height: 1.25;
-    margin-bottom: 0.35rem;
+    font-size: clamp(0.88rem, 3.3vw, 1.05rem);
+    line-height: 1.24;
+    margin-bottom: 0.25rem;
     word-break: normal;
     overflow-wrap: normal;
     hyphens: none;
   }}
 
   .options-list {{
-    gap: 0.45rem;
-    margin-bottom: 0.45rem;
+    gap: 0.35rem;
+    margin-bottom: 0.35rem;
     width: 100%;
     flex: 1 1 auto;
     display: flex;
@@ -2020,46 +2050,73 @@ html, body {{
     justify-content: center;
   }}
 
+  .options-list.has-answered .opt-btn {{
+    transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  }}
+
+  .options-list.has-answered .opt-btn:not(.selected) {{
+    opacity: 0.35;
+    max-height: 34px;
+    min-height: 32px;
+    padding: 0.2rem 0.55rem;
+    font-size: 0.72rem;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    pointer-events: none;
+    border-color: rgba(255, 255, 255, 0.08);
+  }}
+
+  .options-list.has-answered .opt-btn.selected {{
+    transform: scale(1.01);
+    box-shadow: 0 0 14px rgba(245, 158, 11, 0.25);
+    border-width: 1.5px;
+    padding: 0.45rem 0.75rem;
+  }}
+
   .opt-btn {{
-    padding: 0.65rem 0.85rem;
-    font-size: clamp(0.85rem, 3vw, 1rem);
-    line-height: 1.3;
-    min-height: 48px;
-    gap: 0.55rem;
+    padding: 0.48rem 0.75rem;
+    font-size: clamp(0.78rem, 2.8vw, 0.90rem);
+    line-height: 1.25;
+    min-height: 42px;
+    gap: 0.45rem;
     border-radius: 10px;
   }}
 
   .opt-letter {{
-    width: 32px;
-    height: 32px;
-    min-width: 32px;
-    font-size: 0.95rem;
-    border-radius: 8px;
+    width: 28px;
+    height: 28px;
+    min-width: 28px;
+    font-size: 0.85rem;
+    border-radius: 6px;
   }}
 
   .feedback-box {{
-    padding: 0.65rem 0.8rem;
-    margin-top: 0.35rem;
+    padding: 0.5rem 0.7rem;
+    margin-top: 0.3rem;
+    border-radius: 10px;
+    animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }}
 
   .fb-meme {{
-    font-size: 0.85rem;
-    margin-bottom: 0.25rem;
+    font-size: 0.80rem;
+    margin-bottom: 0.2rem;
   }}
 
   .fb-explanation {{
-    font-size: 0.8rem;
-    line-height: 1.35;
-    margin-bottom: 0.55rem;
+    font-size: 0.75rem;
+    line-height: 1.28;
+    margin-bottom: 0.4rem;
   }}
 
   .flow-btn-primary,
   .flow-btn-next {{
     width: 100%;
-    min-height: 48px;
+    min-height: 42px;
     justify-content: center;
-    font-size: 1.05rem;
-    padding: 0.65rem 1.2rem;
+    font-size: 0.92rem;
+    padding: 0.55rem 1rem;
+    border-radius: 10px;
   }}
 
   /* HOLDER 4: FINALE IN PORTRAIT (MOBILE-FIRST FIT) */
@@ -2952,21 +3009,27 @@ window.goToSlide = function(slideId) {{
 
   document.querySelectorAll('.slide-holder').forEach(s => {{
     s.classList.remove('active');
+    s.scrollTop = 0;
   }});
 
   const target = document.getElementById(slideId);
   if (target) {{
     target.classList.add('active');
-    // Always scroll target holder to top on slide transition
     target.scrollTop = 0;
+    const scrollables = target.querySelectorAll('.holder-box, .question-slide-card, .stage-intro-grid, .diff-slide-card, .hero-card, .finale-card, .reality-check-zone');
+    scrollables.forEach(el => {{ el.scrollTop = 0; }});
   }}
 
-  // Reset window scroll
+  document.querySelectorAll('.question-slide-card').forEach(c => {{ c.scrollTop = 0; }});
+
+  // Reset window, documentElement, and body scroll
   try {{
-    window.scrollTo({{ top: 0, behavior: 'instant' }});
+    window.scrollTo({{ top: 0, left: 0, behavior: 'instant' }});
   }} catch(e) {{
     window.scrollTo(0, 0);
   }}
+  if (document.documentElement) document.documentElement.scrollTop = 0;
+  if (document.body) document.body.scrollTop = 0;
 
   // HUD Visibility: Only visible during gameplay stages
   const hudHeader = document.getElementById('gameHudHeader');
@@ -3167,6 +3230,7 @@ function renderCurrentNode() {{
     </div>
     <div class="feedback-box" id="diagnosticFeedbackBox"></div>
   `;
+  diagCard.scrollTop = 0;
 
   // 3. RENDER HOLDER 3C: PREGUNTA PERSONAL («¿QUÉ HARÍAS TÚ?») (SHUFFLED)
   const immersionData = char.immersion[state.difficulty] || char.immersion.easy;
@@ -3198,6 +3262,7 @@ function renderCurrentNode() {{
     </div>
     <div class="feedback-box" id="immersionFeedbackBox"></div>
   `;
+  personalCard.scrollTop = 0;
 
   // 4. RENDER HOLDER 3D: REALITY CHECK (DIFFERENTIATED & SHUFFLED)
   const realityData = (state.difficulty === 'hard' && char.immersion && char.immersion.realityCheckHard)
@@ -3234,6 +3299,7 @@ function renderCurrentNode() {{
         <div class="feedback-box" id="realityFeedbackBox"></div>
       </div>
     `;
+    realityCard.scrollTop = 0;
   }} else {{
     realityCard.innerHTML = `
       <div class="reality-check-zone" id="realityCheckZone">
@@ -3302,18 +3368,19 @@ window.handleDiagnosticAnswer = function(shuffledIdx, evt) {{
 
   const rect = evt.target.getBoundingClientRect();
   if (opt.score > 0) {{
-    btns[shuffledIdx].classList.add('correct');
+    btns[shuffledIdx].classList.add('correct', 'selected');
     audio.playCorrect();
     spawnFloatingScore('+1 PTS', 'plus', rect.left + rect.width / 2, rect.top);
   }} else if (opt.score < 0) {{
-    btns[shuffledIdx].classList.add('incorrect');
+    btns[shuffledIdx].classList.add('incorrect', 'selected');
     audio.playIncorrect();
     spawnFloatingScore('-1 PTS', 'minus', rect.left + rect.width / 2, rect.top);
   }} else {{
-    btns[shuffledIdx].classList.add('neutral');
+    btns[shuffledIdx].classList.add('neutral', 'selected');
     audio.playClick();
     spawnFloatingScore('+0 PTS', 'zero', rect.left + rect.width / 2, rect.top);
   }}
+  list.classList.add('has-answered');
 
   // Show Feedback with "Continuar" button to proceed to Personal Slide
   const fb = document.getElementById('diagnosticFeedbackBox');
@@ -3329,7 +3396,6 @@ window.handleDiagnosticAnswer = function(shuffledIdx, evt) {{
       Continuar a Pregunta Personal ➔
     </button>
   `;
-  fb.scrollIntoView({{ behavior: 'smooth', block: 'center' }});
 }};
 
 window.revealPersonalQuestion = function() {{
@@ -3361,18 +3427,19 @@ window.handleImmersionAnswer = function(shuffledIdx, evt) {{
 
   const rect = evt.target.getBoundingClientRect();
   if (opt.score > 0) {{
-    btns[optIdx].classList.add('correct');
+    btns[optIdx].classList.add('correct', 'selected');
     audio.playCorrect();
     spawnFloatingScore('+1 PTS', 'plus', rect.left + rect.width / 2, rect.top);
   }} else if (opt.score < 0) {{
-    btns[optIdx].classList.add('incorrect');
+    btns[optIdx].classList.add('incorrect', 'selected');
     audio.playIncorrect();
     spawnFloatingScore('-1 PTS', 'minus', rect.left + rect.width / 2, rect.top);
   }} else {{
-    btns[optIdx].classList.add('neutral');
+    btns[optIdx].classList.add('neutral', 'selected');
     audio.playClick();
     spawnFloatingScore('+0 PTS', 'zero', rect.left + rect.width / 2, rect.top);
   }}
+  list.classList.add('has-answered');
 
   const fb = document.getElementById('immersionFeedbackBox');
   fb.className = `feedback-box active ${{opt.score > 0 ? 'correct-fb' : opt.score < 0 ? 'incorrect-fb' : 'neutral-fb'}}`;
@@ -3400,7 +3467,6 @@ window.handleImmersionAnswer = function(shuffledIdx, evt) {{
       </button>
     `;
   }}
-  fb.scrollIntoView({{ behavior: 'smooth', block: 'center' }});
 }};
 
 window.handleRealityAnswer = function(shuffledIdx, evt) {{
@@ -3427,14 +3493,15 @@ window.handleRealityAnswer = function(shuffledIdx, evt) {{
 
   const rect = evt.target.getBoundingClientRect();
   if (opt.score > 0) {{
-    btns[optIdx].classList.add('correct');
+    btns[optIdx].classList.add('correct', 'selected');
     audio.playCorrect();
     spawnFloatingScore('+1 PTS', 'plus', rect.left + rect.width / 2, rect.top);
   }} else {{
-    btns[optIdx].classList.add('incorrect');
+    btns[optIdx].classList.add('incorrect', 'selected');
     audio.playIncorrect();
     spawnFloatingScore('-1 PTS', 'minus', rect.left + rect.width / 2, rect.top);
   }}
+  list.classList.add('has-answered');
 
   const fb = document.getElementById('realityFeedbackBox');
   fb.className = `feedback-box active ${{opt.score > 0 ? 'correct-fb' : 'incorrect-fb'}}`;
@@ -3453,7 +3520,6 @@ window.handleRealityAnswer = function(shuffledIdx, evt) {{
       ${{nextBtnText}}
     </button>
   `;
-  fb.scrollIntoView({{ behavior: 'smooth', block: 'center' }});
 }};
 
 window.nextCharacter = function() {{

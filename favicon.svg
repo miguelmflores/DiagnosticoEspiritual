@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <defs>
+    <radialGradient id="bgGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#1e2230"/>
+      <stop offset="100%" stop-color="#08090d"/>
+    </radialGradient>
+    <radialGradient id="haloGrad" cx="50%" cy="45%" r="40%">
+      <stop offset="0%" stop-color="#fde047" stop-opacity="0.75"/>
+      <stop offset="50%" stop-color="#d4af37" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fffbeb"/>
+      <stop offset="35%" stop-color="#fde047"/>
+      <stop offset="75%" stop-color="#d4af37"/>
+      <stop offset="100%" stop-color="#92400e"/>
+    </linearGradient>
+  </defs>
+  <!-- Background with Gold Ring -->
+  <rect width="128" height="128" rx="28" fill="url(#bgGrad)"/>
+  <rect x="3" y="3" width="122" height="122" rx="25" fill="none" stroke="url(#goldGrad)" stroke-width="3" stroke-opacity="0.9"/>
+  <!-- Halo Glow -->
+  <circle cx="64" cy="58" r="44" fill="url(#haloGrad)"/>
+  <!-- Dove Silhouette / Symbol -->
+  <g fill="url(#goldGrad)" stroke="#92400e" stroke-width="1.5" stroke-linejoin="round">
+    <!-- Body and Tail -->
+    <path d="M64,34 C60,42 56,54 52,66 C48,78 44,92 46,96 C50,94 56,88 64,78 C72,88 78,94 82,96 C84,92 80,78 76,66 C72,54 68,42 64,34 Z"/>
+    <!-- Left Wing -->
+    <path d="M60,50 C48,36 34,28 18,34 C26,44 38,54 52,60 Z"/>
+    <!-- Right Wing -->
+    <path d="M68,50 C80,36 94,28 110,34 C102,44 90,54 76,60 Z"/>
+    <!-- Dove Head -->
+    <circle cx="64" cy="34" r="7"/>
+    <!-- Olive Beak -->
+    <polygon points="64,27 61,31 67,31" fill="#fef08a"/>
+  </g>
+</svg>

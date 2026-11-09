@@ -91,11 +91,28 @@ for key, fname in IMAGE_FILES.items():
     else:
         raise FileNotFoundError(f"Missing {fpath}")
 
+PORTRAIT_DIR = os.path.join(os.path.dirname(__file__), "assets_portrait")
+
+def load_portrait_b64(path, max_w=480, q=80):
+    img = Image.open(path)
+    if img.mode != 'RGB':
+        img = img.convert('RGB')
+    w, h = img.size
+    if w > max_w:
+        new_h = int(h * (max_w / w))
+        img = img.resize((max_w, new_h), Image.Resampling.LANCZOS)
+    buf = io.BytesIO()
+    img.save(buf, format='JPEG', quality=q, optimize=True)
+    return "data:image/jpeg;base64," + base64.b64encode(buf.getvalue()).decode('utf-8')
+
 print("Loading dedicated 9:16 Portrait artworks to Base64...")
 ASSETS_PORTRAIT = {}
-for key, fname in IMAGE_FILES.items():
-    if key in CROP_LEFTS:
-        fpath = os.path.join(BRAIN_DIR, fname)
+for key in IMAGE_FILES.keys():
+    portrait_path = os.path.join(PORTRAIT_DIR, f"{key}_portrait.jpg")
+    if os.path.exists(portrait_path):
+        ASSETS_PORTRAIT[key] = load_portrait_b64(portrait_path)
+    elif key in CROP_LEFTS:
+        fpath = os.path.join(BRAIN_DIR, IMAGE_FILES[key])
         ASSETS_PORTRAIT[key] = img_portrait_to_b64(fpath, CROP_LEFTS[key])
 
 # Load the 16 characters from compile_phase2.py
