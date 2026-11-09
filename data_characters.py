@@ -45,6 +45,43 @@ def img_to_b64(path, max_w=900, q=80):
     img.save(buf, format='JPEG', quality=q, optimize=True)
     return "data:image/jpeg;base64," + base64.b64encode(buf.getvalue()).decode('utf-8')
 
+# Calibration coordinates: exact pixel crop for 9:16 vertical mobile portrait
+CROP_LEFTS = {
+    'cain': 620,
+    'abraham_hagar': 585,
+    'abraham_isaac': 300,
+    'joseph': 472,
+    'pharaoh': 736,
+    'moses': 736,
+    'bezaleel': 614,
+    'saul': 430,
+    'david_goliath': 170,
+    'david_repentance': 614,
+    'elijah': 623,
+    'micaiah': 283,
+    'daniel': 623,
+    'john_baptist': 151,
+    'judas': 340,
+    'peter_pentecost': 642,
+    'ananias_sapphira': 330,
+    'stephen_paul': 660,
+    'jesus': 434,
+}
+
+def img_portrait_to_b64(path, left_px, max_w=432, q=78):
+    img = Image.open(path)
+    if img.mode != 'RGB':
+        img = img.convert('RGB')
+    w, h = img.size
+    crop_w = int(h * (9 / 16))
+    cropped = img.crop((left_px, 0, left_px + crop_w, h))
+    if crop_w > max_w:
+        new_h = int(h * (max_w / crop_w))
+        cropped = cropped.resize((max_w, new_h), Image.Resampling.LANCZOS)
+    buf = io.BytesIO()
+    cropped.save(buf, format='JPEG', quality=q, optimize=True)
+    return "data:image/jpeg;base64," + base64.b64encode(buf.getvalue()).decode('utf-8')
+
 print("Loading NanoBanana artworks to Base64...")
 ASSETS = {}
 for key, fname in IMAGE_FILES.items():
@@ -53,6 +90,13 @@ for key, fname in IMAGE_FILES.items():
         ASSETS[key] = img_to_b64(fpath)
     else:
         raise FileNotFoundError(f"Missing {fpath}")
+
+print("Loading dedicated 9:16 Portrait artworks to Base64...")
+ASSETS_PORTRAIT = {}
+for key, fname in IMAGE_FILES.items():
+    if key in CROP_LEFTS:
+        fpath = os.path.join(BRAIN_DIR, fname)
+        ASSETS_PORTRAIT[key] = img_portrait_to_b64(fpath, CROP_LEFTS[key])
 
 # Load the 16 characters from compile_phase2.py
 with open('compile_phase2.py', 'r', encoding='utf-8') as f:
@@ -312,18 +356,22 @@ CHARACTERS = []
 for c in p2_chars:
     c["textSide"] = TEXT_SIDES.get(c["id"], "right")
     c["portraitPos"] = PORTRAIT_POSITIONS.get(c["id"], "50% 20%")
+    c["imagePortrait"] = ASSETS_PORTRAIT.get(c["id"], c["image"])
     CHARACTERS.append(c)
     if c["id"] == "moses":
         BEZALEEL["textSide"] = TEXT_SIDES.get("bezaleel", "left")
         BEZALEEL["portraitPos"] = PORTRAIT_POSITIONS.get("bezaleel", "65% 20%")
+        BEZALEEL["imagePortrait"] = ASSETS_PORTRAIT.get("bezaleel", BEZALEEL["image"])
         CHARACTERS.append(BEZALEEL)
     elif c["id"] == "elijah":
         MICAIAH["textSide"] = TEXT_SIDES.get("micaiah", "right")
         MICAIAH["portraitPos"] = PORTRAIT_POSITIONS.get("micaiah", "30% 20%")
+        MICAIAH["imagePortrait"] = ASSETS_PORTRAIT.get("micaiah", MICAIAH["image"])
         CHARACTERS.append(MICAIAH)
 
 JESUS["textSide"] = TEXT_SIDES.get("jesus", "right")
 JESUS["portraitPos"] = PORTRAIT_POSITIONS.get("jesus", "46% 18%")
+JESUS["imagePortrait"] = ASSETS_PORTRAIT.get("jesus", JESUS["image"])
 CHARACTERS.append(JESUS)
 print(f"Total characters ready: {len(CHARACTERS)}")
 

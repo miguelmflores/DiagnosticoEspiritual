@@ -738,7 +738,8 @@ html, body {{
 .stage-intro-grid.align-left .intro-art-col {{
   order: 2;
 }}
-.stage-intro-grid.align-left .stage-intro-bg-img {{
+.stage-intro-grid.align-left .stage-intro-bg-img,
+.stage-intro-grid.align-left .stage-intro-bg-picture img {{
   object-position: 78% center; /* Personaje nítido en el lado derecho */
 }}
 .stage-intro-grid.align-left .stage-intro-overlay {{
@@ -760,7 +761,8 @@ html, body {{
 .stage-intro-grid.align-right .intro-info-col {{
   order: 2;
 }}
-.stage-intro-grid.align-right .stage-intro-bg-img {{
+.stage-intro-grid.align-right .stage-intro-bg-img,
+.stage-intro-grid.align-right .stage-intro-bg-picture img {{
   object-position: 22% center; /* Personaje nítido en el lado izquierdo */
 }}
 .stage-intro-grid.align-right .stage-intro-overlay {{
@@ -773,7 +775,19 @@ html, body {{
 }}
 
 /* BACKGROUND IMAGE OF THE ENTIRE HOLDER */
-.stage-intro-bg-img {{
+.stage-intro-bg-picture {{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+  border-radius: inherit;
+  overflow: hidden;
+}}
+
+.stage-intro-bg-img,
+.stage-intro-bg-picture img {{
   position: absolute;
   inset: 0;
   width: 100%;
@@ -1844,8 +1858,11 @@ html, body {{
   .stage-intro-grid .stage-intro-bg-img,
   .stage-intro-grid.align-left .stage-intro-bg-img,
   .stage-intro-grid.align-right .stage-intro-bg-img,
+  .stage-intro-grid .stage-intro-bg-picture img,
+  .stage-intro-grid.align-left .stage-intro-bg-picture img,
+  .stage-intro-grid.align-right .stage-intro-bg-picture img,
   .stage-intro-bg-img {{
-    object-position: var(--portrait-pos, center 20%) !important;
+    object-position: center top !important;
   }}
 
   .stage-intro-grid.align-left .stage-intro-overlay,
@@ -3070,9 +3087,14 @@ function renderCurrentNode() {{
   const alignClass = (char.textSide === 'left') ? 'align-left' : 'align-right';
   const introContainer = document.getElementById('stageIntroGrid');
   introContainer.className = `stage-intro-grid ${{alignClass}}`;
+  const isPortrait = window.matchMedia("(orientation: portrait)").matches || window.innerHeight > window.innerWidth;
+  const currentImg = (isPortrait && char.imagePortrait) ? char.imagePortrait : char.image;
   introContainer.innerHTML = `
-    <!-- IMAGEN DE FONDO DE TODO EL HOLDER (CALIBRACIÓN DINÁMICA PORTRAIT & LANDSCAPE) -->
-    <img src="${{char.image}}" alt="${{char.name}}" class="stage-intro-bg-img" style="--portrait-pos: ${{char.portraitPos || '50% 20%'}};">
+    <!-- IMAGEN DE FONDO DE TODO EL HOLDER (ARTE NATIVO 9:16 EN MOBILE Y 16:9 EN DESKTOP) -->
+    <picture class="stage-intro-bg-picture">
+      <source media="(orientation: portrait)" srcset="${{char.imagePortrait || char.image}}">
+      <img src="${{currentImg}}" alt="${{char.name}}" class="stage-intro-bg-img">
+    </picture>
     <div class="stage-intro-overlay"></div>
     <div class="character-tag-badge ${{char.tagClass}}">${{char.tag}}</div>
 
