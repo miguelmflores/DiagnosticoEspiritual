@@ -48,6 +48,7 @@ HTML_CONTENT = f"""<!DOCTYPE html>
 <title>Diagnóstico Bíblico: ¿Tienes el Espíritu Santo? | BL400K</title>
 
 <!-- Primary Open Graph / WhatsApp Preview (FIRST in head for crawler priority) -->
+<meta property="fb:app_id" content="966242223397117">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Diagnóstico Bíblico BL400K">
 <meta property="og:url" content="https://miguelmflores.github.io/DiagnosticoEspiritual/">
